@@ -1,0 +1,35 @@
+
+
+db.artigos.update({
+    slug: "faculdade-e-diploma-sao-necessarios-para-programar"
+},{
+    $pop: {
+        comentarios: 1
+    }
+})
+
+var documento = db.artigos.findOneAndUpdate({
+    slug: "faculdade-e-diploma-sao-necessarios-para-programar"
+},{
+    $push: {
+        comentarios: {
+            $each: [
+                {
+                    nome: "Daniel",
+                    email: "daniel.santos@gmail.com",
+                    texto: "Gostei",
+                    data: ISODate('2021-09-27')
+                }
+            ],
+            $position: 0
+        }
+    }
+},{returnNewDocument: true})
+
+db.comentarios.insertOne({
+    _id_artigo: documento._id,
+    nome: "Daniel",
+    email: "daniel.santos@gmail.com",
+    texto: "Gostei",
+    data: ISODate('2021-09-27')
+})
