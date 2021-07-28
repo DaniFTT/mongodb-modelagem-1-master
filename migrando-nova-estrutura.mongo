@@ -7,7 +7,7 @@ db.autores.aggregate([
         $project : {
             _id: 0,
             "autor.nome": "$nome",
-            "autor.descricao": "$descricao",
+            "autor.descricao": "$descrição",
             "autor.email": "$email",
             "autor.senha": "$senha",
             slug : "$artigos.slug",
@@ -20,3 +20,7 @@ db.autores.aggregate([
         $out: "artigos"
     }
 ])
+
+db.autores.drop()
+
+db.getCollectionNames()
